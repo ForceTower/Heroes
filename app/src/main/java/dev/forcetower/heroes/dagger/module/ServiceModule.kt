@@ -16,7 +16,7 @@ object ServiceModule {
     @Singleton
     fun provideTMDbService(client: OkHttpClient, gson: Gson): MarvelService {
         return Retrofit.Builder()
-            .baseUrl("https://${Constants.MARVEL_SERVICE}/v1/")
+            .baseUrl("https://${Constants.MARVEL_SERVICE}/v1/public/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

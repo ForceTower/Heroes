@@ -1,7 +1,6 @@
 package dev.forcetower.heroes.dagger.module
 
 import android.content.Context
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -38,7 +37,7 @@ object AppModule {
                 val url = request.url.newBuilder()
                     .addQueryParameter("ts", Constants.MARVEL_TS)
                     .addQueryParameter("apikey", Constants.MARVEL_PUBLIC_KEY)
-                    .addQueryParameter("hash", Constants.MARVEL_PUBLIC_KEY)
+                    .addQueryParameter("hash", Constants.MARVEL_HASH_KEY)
                     .build()
 
                 val renewed = request.newBuilder().url(url).headers(headers).build()
@@ -73,7 +72,6 @@ object AppModule {
     @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .serializeNulls()
             .create()
     }

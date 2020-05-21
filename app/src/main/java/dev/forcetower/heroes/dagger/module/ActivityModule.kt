@@ -6,6 +6,6 @@ import dev.forcetower.heroes.view.MainActivity
 
 @Module
 abstract class ActivityModule {
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [MainActivityModule::class])
     abstract fun main(): MainActivity
 }
