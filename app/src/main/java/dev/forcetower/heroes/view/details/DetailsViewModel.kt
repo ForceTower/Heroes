@@ -28,8 +28,10 @@ class DetailsViewModel @Inject constructor(
     }
 
     override fun onNavigateBack() {
+        _onNavigateBack.value = Event(Unit)
     }
 
     override fun onNavigateToMostExpensive() {
+        _onNavigateToMostExpensive.value = Event(Unit)
     }
 }
