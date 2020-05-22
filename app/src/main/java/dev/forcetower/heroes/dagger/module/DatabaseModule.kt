@@ -12,7 +12,6 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(context: Context): MarvelDatabase {
-        return Room.databaseBuilder(context, MarvelDatabase::class.java, "marvelous.db")
-            .build()
+        return Room.inMemoryDatabaseBuilder(context, MarvelDatabase::class.java).build()
     }
 }

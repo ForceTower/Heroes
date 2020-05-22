@@ -6,14 +6,15 @@
     <color name="colorSecondary">#8e24aa</color>
     <color name="colorSecondaryDark">#5c007a</color>
     <color name="colorSecondaryLight">#c158dc</color>
-    <color name="colorOnPrimary">#000000</color>
-    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
 
     <color name="titleScoreColor">#ffa000</color>
     <color name="divider">#e0e0e0</color>
 
-    <color name="text_primary_dark">#de000000</color>
-    <color name="text_secondary_dark">#8a000000</color>
-    <color name="text_primary_light">#ffffffff</color>
-    <color name="text_secondary_light">#b3ffffff</color>
+    <color name="textPrimaryDark">#de000000</color>
+    <color name="textSecondaryDark">#8a000000</color>
+
+    <color name="background0">#00FFFFFF</color>
+    <color name="background">#FFFFFFFF</color>
 </resources>
