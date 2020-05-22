@@ -6,10 +6,7 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import dev.forcetower.heroes.HeroApp
-import dev.forcetower.heroes.dagger.module.ActivityModule
-import dev.forcetower.heroes.dagger.module.AppModule
-import dev.forcetower.heroes.dagger.module.ServiceModule
-import dev.forcetower.heroes.dagger.module.ViewModelModule
+import dev.forcetower.heroes.dagger.module.*
 import javax.inject.Singleton
 
 @Singleton
@@ -19,6 +16,7 @@ import javax.inject.Singleton
     ActivityModule::class,
     AppModule::class,
     ServiceModule::class,
+    DatabaseModule::class,
     ViewModelModule::class
 ])
 interface AppComponent : AndroidInjector<HeroApp> {

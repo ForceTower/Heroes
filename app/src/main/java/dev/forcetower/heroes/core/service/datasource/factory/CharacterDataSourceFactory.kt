@@ -5,17 +5,19 @@ import androidx.paging.DataSource
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
 import dev.forcetower.heroes.core.service.MarvelService
 import dev.forcetower.heroes.core.service.datasource.CharacterDataSource
+import dev.forcetower.heroes.core.storage.MarvelDatabase
 import kotlinx.coroutines.CoroutineScope
 
 class CharacterDataSourceFactory(
     private val service: MarvelService,
+    private val database: MarvelDatabase,
     private val scope: CoroutineScope,
     private val error: (Throwable) -> Unit
 ) : DataSource.Factory<Int, MarvelCharacter>() {
     val sourceLiveData = MutableLiveData<CharacterDataSource>()
 
     override fun create(): DataSource<Int, MarvelCharacter> {
-        val source = CharacterDataSource(service, scope, error)
+        val source = CharacterDataSource(service, database, scope, error)
         sourceLiveData.postValue(source)
         return source
     }

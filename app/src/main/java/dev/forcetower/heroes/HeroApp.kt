@@ -10,6 +10,7 @@ class HeroApp : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        // "Every time you log in production, a puppy dies"
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }

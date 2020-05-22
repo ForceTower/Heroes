@@ -9,16 +9,23 @@ import dev.forcetower.heroes.core.extensions.inflate
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
 import dev.forcetower.heroes.databinding.ItemCharacterBinding
 
-class CharacterAdapter : PagedListAdapter<MarvelCharacter, CharacterAdapter.CharacterHolder>(DiffCallback) {
+class CharacterAdapter(
+    private val actions: CharacterActions
+) : PagedListAdapter<MarvelCharacter, CharacterAdapter.CharacterHolder>(DiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
-        return CharacterHolder(parent.inflate(R.layout.item_character))
+        return CharacterHolder(parent.inflate(R.layout.item_character), actions)
     }
 
     override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
         holder.binding.character = getItem(position)
     }
 
-    inner class CharacterHolder(val binding: ItemCharacterBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class CharacterHolder(
+        val binding: ItemCharacterBinding,
+        actions: CharacterActions
+    ) : RecyclerView.ViewHolder(binding.root) {
+        init { binding.actions = actions }
+    }
 
     private object DiffCallback : DiffUtil.ItemCallback<MarvelCharacter>() {
         override fun areItemsTheSame(oldItem: MarvelCharacter, newItem: MarvelCharacter): Boolean {

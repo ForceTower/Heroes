@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="actions"
+            type="dev.forcetower.heroes.view.characters.CharacterActions" />
+
+        <variable
+            name="empty"
+            type="Boolean" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,6 +22,7 @@
             app:paddingTopSystemWindowInsets="@{true}"
             app:paddingStartSystemWindowInsets="@{true}"
             app:paddingEndSystemWindowInsets="@{true}"
+            app:liftOnScrollTargetViewId="@id/characters_recycler"
             app:liftOnScroll="true">
             <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
@@ -26,16 +38,26 @@
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/characters_recycler"
+        <!-- https://issuetracker.google.com/issues/111634113
+            There is a platform bug that makes the nested scrolling child
+            incorrectly trigger the app bar lift behaviour. Unfortunately it is not fixed at
+            this time, the workaround is to set the id as the liftOnScrollTargetViewId -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="32dp"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-            app:paddingStartSystemWindowInsets="@{true}"
-            app:paddingEndSystemWindowInsets="@{true}"
-            app:paddingBottomSystemWindowInsets="@{true}" />
+            app:refreshing="@{actions.refreshing}"
+            app:onSwipeRefresh="@{() -> actions.refresh()}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/characters_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="32dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:paddingStartSystemWindowInsets="@{true}"
+                app:paddingEndSystemWindowInsets="@{true}"
+                app:paddingBottomSystemWindowInsets="@{true}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

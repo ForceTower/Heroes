@@ -13,6 +13,6 @@ data class MarvelComicDTO(
     val thumbnail: MarvelThumbnailDTO
 )
 
-fun MarvelComicDTO.asComic(): MarvelComic {
-    return MarvelComic(id, digitalId, issueNumber, title, description, prices, "${thumbnail.path}.${thumbnail.extension}")
+fun MarvelComicDTO.asComic(character: Int): MarvelComic {
+    return MarvelComic(id, digitalId, issueNumber, title, description, "${thumbnail.path}.${thumbnail.extension}", character)
 }

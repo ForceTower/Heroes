@@ -7,6 +7,9 @@
         <variable
             name="character"
             type="dev.forcetower.heroes.core.model.persistence.MarvelCharacter" />
+        <variable
+            name="actions"
+            type="dev.forcetower.heroes.view.characters.CharacterActions" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -77,9 +80,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Mais informações"
+                android:text="@string/more_info"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
+                android:onClick="@{() -> actions.onCharacterSelected(character)}"
                 app:icon="@drawable/ic_navigate_next_black_24dp"
                 app:iconGravity="end"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
