@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/expensive"
-        android:name="dev.forcetower.heroes.view.details.DetailsFragment"
+        android:name="dev.forcetower.heroes.view.expensive.ExpensiveFragment"
         android:label="Details"
         tools:layout="@layout/fragment_expensive">
         <argument android:name="characterId"
