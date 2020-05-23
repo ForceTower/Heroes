@@ -24,7 +24,6 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 @Suppress("BlockingMethodInNonBlockingContext")
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ExperimentalCoroutinesApi
 class CharactersViewModelTest : BaseTest() {
     @Captor
@@ -52,7 +51,7 @@ class CharactersViewModelTest : BaseTest() {
         viewModel.errorState.observeForever(errorObserver)
         viewModel.characters.observeForever(observer)
 
-        Thread.sleep(200)
+        Thread.sleep(100)
 
         captor.run {
             verify(observer, times(1)).onChanged(capture())
@@ -61,32 +60,6 @@ class CharactersViewModelTest : BaseTest() {
 
         errorCaptor.run {
             verify(errorObserver, times(0)).onChanged(capture())
-        }
-    }
-
-    @Test
-    fun refreshUpdatesTheList() = runBlockingTest {
-        val response = MarvelFakeDataFactory.makeCharactersResponse()
-        `when`(service.characters(0, 20)).thenReturn(response)
-
-        viewModel.characters.observeForever(observer)
-        Thread.sleep(200)
-
-        val first = captor.run {
-            verify(observer, times(1)).onChanged(capture())
-            assertEquals(value.size, 20)
-            value
-        }
-
-        viewModel.refresh()
-
-        captor.run {
-            verify(observer, times(2)).onChanged(capture())
-            assertEquals(value.size, 20)
-            // the content is equal
-            assertEquals(first, value)
-            // but the list objects are different
-            assertNotSame(first, value)
         }
     }
 }
