@@ -23,6 +23,7 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
+@Suppress("BlockingMethodInNonBlockingContext")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @ExperimentalCoroutinesApi
 class CharactersViewModelTest : BaseTest() {
@@ -51,7 +52,7 @@ class CharactersViewModelTest : BaseTest() {
         viewModel.errorState.observeForever(errorObserver)
         viewModel.characters.observeForever(observer)
 
-        Thread.sleep(100)
+        Thread.sleep(200)
 
         captor.run {
             verify(observer, times(1)).onChanged(capture())
@@ -69,7 +70,7 @@ class CharactersViewModelTest : BaseTest() {
         `when`(service.characters(0, 20)).thenReturn(response)
 
         viewModel.characters.observeForever(observer)
-        Thread.sleep(100)
+        Thread.sleep(200)
 
         val first = captor.run {
             verify(observer, times(1)).onChanged(capture())
