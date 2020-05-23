@@ -20,6 +20,9 @@ jobs:
         with:
           java-version: 1.8
 
+      - name: Decode Signature
+        run: gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.SIGNATURE_PASSWORD }}" --output sign.jks signature.jks.gpg
+
       - name: Dependencies
         run: ./gradlew dependencies
 
@@ -28,9 +31,13 @@ jobs:
 
       - name: Build Release App
         run: ./gradlew assembleRelease
+        env:
+          HEROES_KEYSTORE_ALIAS: ${{ secrets.HEROES_KEYSTORE_ALIAS }}
+          HEROES_KEYSTORE_PASSWORD: ${{ secrets.HEROES_KEYSTORE_PASSWORD }}
+          HEROES_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.HEROES_KEYSTORE_PRIVATE_KEY_PASSWORD }}
 
       - name: Upload result for job
         uses: actions/upload-artifact@v1
         with:
           name: bundle
-          path: app/build/outputs/apk/release/app-release-unsigned.apk
+          path: app/build/outputs/apk/release/app-release.apk
