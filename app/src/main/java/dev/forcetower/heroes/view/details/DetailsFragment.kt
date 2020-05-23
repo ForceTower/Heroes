@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.AnimationSet
+import android.view.animation.LinearInterpolator
+import android.view.animation.TranslateAnimation
 import androidx.fragment.app.viewModels
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dev.forcetower.heroes.core.base.BaseFragment
@@ -46,5 +51,20 @@ class DetailsFragment : BaseFragment() {
             val directions = DetailsFragmentDirections.actionDetailsToExpensive(args.characterId)
             findNavController().navigate(directions)
         })
+
+        val set = AnimationSet(false)
+        val translation = TranslateAnimation(0f, 0f, 800f, 0f).apply {
+            interpolator = LinearOutSlowInInterpolator()
+            duration = 350
+        }
+        val fade = AlphaAnimation(0f, 1f).apply {
+            interpolator = LinearInterpolator()
+            duration = 250
+            startOffset = 100
+        }
+        set.addAnimation(translation)
+        set.addAnimation(fade)
+        binding.details.startAnimation(set)
+        set.start()
     }
 }
