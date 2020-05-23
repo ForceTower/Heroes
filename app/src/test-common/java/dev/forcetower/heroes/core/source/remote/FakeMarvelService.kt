@@ -6,7 +6,10 @@ import dev.forcetower.heroes.core.model.dto.MarvelComicDTO
 import dev.forcetower.heroes.core.model.dto.response.GeneralResponse
 
 class FakeMarvelService : MarvelService {
+    var failsWith: String? = null
+
     override suspend fun characters(offset: Int, limit: Int): GeneralResponse<MarvelCharacterDTO> {
+        if (failsWith != null) throw IllegalStateException(failsWith)
         return MarvelFakeDataFactory.makeCharactersResponse()
     }
 
@@ -15,6 +18,7 @@ class FakeMarvelService : MarvelService {
         offset: Int,
         limit: Int
     ): GeneralResponse<MarvelComicDTO> {
+        if (failsWith != null) throw IllegalStateException(failsWith)
         return MarvelFakeDataFactory.makeComicsResponse()
     }
 }

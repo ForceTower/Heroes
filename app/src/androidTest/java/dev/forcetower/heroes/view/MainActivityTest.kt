@@ -6,6 +6,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -14,6 +15,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import dev.forcetower.heroes.R
 import dev.forcetower.heroes.TestApplication
+import dev.forcetower.heroes.core.source.remote.FakeMarvelService
 import dev.forcetower.heroes.dagger.DaggerTestComponent
 import dev.forcetower.heroes.testutils.MatcherUtils.isTextMaxLines
 import org.junit.Before
@@ -64,6 +66,9 @@ class MainActivityTest {
             .check(matches(isTextMaxLines(3)))
             .check(matches(withText("Funky description")))
 
+        onView(withId(R.id.no_content))
+            .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+
         onView(withId(R.id.costs))
             .check(matches(isDisplayed()))
 
@@ -72,5 +77,20 @@ class MainActivityTest {
 
         onView(withId(R.id.btn_back))
             .perform(click())
+
+        onView(withId(R.id.characters_recycler))
+            .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(9))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(9, click()))
+
+        (app.service as FakeMarvelService).failsWith = "No comics today"
+
+        onView(withId(R.id.btn_expensive))
+            .perform(click())
+
+        onView(withId(R.id.no_content))
+            .check(matches(isDisplayed()))
+            .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+        (app.service as FakeMarvelService).failsWith = null
     }
 }

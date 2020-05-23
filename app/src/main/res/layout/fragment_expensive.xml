@@ -111,6 +111,7 @@
             app:constraint_referenced_ids="title,costs,description,thumbnail"/>
 
         <TextView
+            android:id="@+id/no_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAlignment="gravity"

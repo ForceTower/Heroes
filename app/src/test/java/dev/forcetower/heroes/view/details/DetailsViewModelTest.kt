@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
-import org.mockito.Mockito.`when`
 import org.mockito.Mockito.atLeastOnce
 import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
@@ -39,7 +38,6 @@ class DetailsViewModelTest : BaseTest() {
      */
     @Test
     fun loadSuccessAndNeverFails() = runBlockingTest {
-        `when`(service.comics(1)).thenThrow(IllegalStateException("But I failed..."))
         viewModel.setCharacterId(1)
         viewModel.character.observeForever(observer)
         captor.run {
