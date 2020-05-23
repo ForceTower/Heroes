@@ -1,4 +1,4 @@
-package dev.forcetower.heroes.core.repository
+package dev.forcetower.heroes.core.source.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
@@ -13,10 +13,11 @@ import dev.forcetower.heroes.core.model.dto.response.GeneralResponse
 import dev.forcetower.heroes.core.model.dto.response.asPrice
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
 import dev.forcetower.heroes.core.model.ui.MarvelExpensiveComic
-import dev.forcetower.heroes.core.service.MarvelService
-import dev.forcetower.heroes.core.service.datasource.factory.CharacterDataSourceFactory
-import dev.forcetower.heroes.core.service.datasource.helpers.Listing
-import dev.forcetower.heroes.core.storage.MarvelDatabase
+import dev.forcetower.heroes.core.source.MarvelSource
+import dev.forcetower.heroes.core.source.remote.MarvelService
+import dev.forcetower.heroes.core.source.remote.datasource.factory.CharacterDataSourceFactory
+import dev.forcetower.heroes.core.source.remote.datasource.helpers.Listing
+import dev.forcetower.heroes.core.source.local.MarvelDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import timber.log.Timber
@@ -27,8 +28,8 @@ import javax.inject.Singleton
 class MarvelRepository @Inject constructor(
     private val service: MarvelService,
     private val database: MarvelDatabase
-) {
-    fun characters(
+) : MarvelSource {
+    override fun characters(
         scope: CoroutineScope,
         error: (Throwable) -> Unit
     ): Listing<MarvelCharacter> {
@@ -50,8 +51,11 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    fun character(characterId: Int): LiveData<MarvelCharacter> = liveData(Dispatchers.IO) {
+    override fun character(
+        characterId: Int
+    ): LiveData<MarvelCharacter?> = liveData(Dispatchers.IO) {
         emitSource(database.characters().character(characterId).asLiveData())
+        // prepare for next screen, cache first page of comics in
         try {
             val response = service.comics(characterId = characterId, limit = 20)
             saveResponse(response, characterId)
@@ -60,21 +64,33 @@ class MarvelRepository @Inject constructor(
         }
     }
 
-    fun allComics(characterId: Int): LiveData<Pair<Int, Int>> = liveData(Dispatchers.IO) {
-        var offset = 0
-        var total = 0
-
-        do {
-            val response = service.comics(characterId, offset, 20)
-            saveResponse(response, characterId)
-            if (total == 0) total = response.data.total
-            offset += response.data.count
-            emit(offset to total)
-        } while (offset < total)
+    override fun fetchAllComics(
+        characterId: Int,
+        error: (Throwable) -> Unit
+    ): LiveData<Pair<Int, Int>> = liveData(Dispatchers.IO) {
+        try {
+            var offset = 0
+            var total = 0
+            emit(0 to 1)
+            do {
+                // Here we interested on fetching the max amount of comics in a single run,
+                // so we limit to 100 at each iteration
+                val response = service.comics(characterId, offset, 100)
+                saveResponse(response, characterId)
+                if (total == 0) total = response.data.total
+                offset += response.data.count
+                emit(offset to total)
+            } while (offset < total)
+        } catch (throwable: Throwable) {
+            error(throwable)
+            // emit(-1 to -1)
+        }
     }
 
-    fun mostExpensive(characterId: Int): LiveData<MarvelExpensiveComic?> {
-        return database.comics().mostExpensive(characterId).asLiveData()
+    override fun mostExpensiveComic(
+        characterId: Int
+    ): LiveData<MarvelExpensiveComic?> = liveData(Dispatchers.IO) {
+        emitSource(database.comics().mostExpensive(characterId).asLiveData())
     }
 
     private suspend fun saveResponse(response: GeneralResponse<MarvelComicDTO>, characterId: Int) {

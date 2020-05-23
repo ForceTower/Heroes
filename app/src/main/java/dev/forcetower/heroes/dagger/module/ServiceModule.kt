@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dev.forcetower.heroes.Constants
-import dev.forcetower.heroes.core.service.MarvelService
+import dev.forcetower.heroes.core.source.remote.MarvelService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,7 +16,7 @@ object ServiceModule {
     @Singleton
     fun provideTMDbService(client: OkHttpClient, gson: Gson): MarvelService {
         return Retrofit.Builder()
-            .baseUrl("https://${Constants.MARVEL_SERVICE}/v1/public/")
+            .baseUrl("http://${Constants.MARVEL_SERVICE}/v1/public/")
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

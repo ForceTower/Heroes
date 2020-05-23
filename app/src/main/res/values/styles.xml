@@ -2,6 +2,7 @@
     <style name="Heroes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary40">@color/colorPrimary40</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryLight</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryLight</item>

@@ -1,4 +1,4 @@
-package dev.forcetower.heroes.core.service.datasource.helpers
+package dev.forcetower.heroes.core.source.remote.datasource.helpers
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList

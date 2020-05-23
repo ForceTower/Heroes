@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/marvel"
                     android:textSize="32sp"
-                    android:textColor="?attr/colorOnSurface"
+                    android:textColor="?attr/colorPrimary"
                     android:letterSpacing="-0.07"
                     app:fontFamily="@font/bebas_regular"/>
             </com.google.android.material.appbar.MaterialToolbar>
@@ -47,6 +47,7 @@
             android:layout_height="match_parent"
             app:refreshing="@{actions.refreshing}"
             app:onSwipeRefresh="@{() -> actions.refresh()}"
+            app:swipeRefreshColors="@{@intArray/swipeRefreshColors}"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/characters_recycler"

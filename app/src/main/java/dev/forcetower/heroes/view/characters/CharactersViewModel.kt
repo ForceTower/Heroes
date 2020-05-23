@@ -3,9 +3,9 @@ package dev.forcetower.heroes.view.characters
 import androidx.lifecycle.*
 import androidx.paging.PagedList
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
-import dev.forcetower.heroes.core.repository.MarvelRepository
-import dev.forcetower.heroes.core.service.datasource.helpers.Status
+import dev.forcetower.heroes.core.source.repository.MarvelRepository
 import dev.forcetower.heroes.core.ui.Event
+import dev.forcetower.heroes.core.source.remote.datasource.helpers.Status
 import javax.inject.Inject
 
 class CharactersViewModel @Inject constructor(
@@ -20,7 +20,7 @@ class CharactersViewModel @Inject constructor(
     override val refreshing = characterSource.refreshState.map { it.status == Status.RUNNING }
     override val errorState: LiveData<Event<Throwable>> = _errorState
 
-    override val onCharacterSelected: LiveData<Event<MarvelCharacter>> = _onCharacterSelected
+    val onCharacterSelected: LiveData<Event<MarvelCharacter>> = _onCharacterSelected
 
     private fun onError(throwable: Throwable) {
         _errorState.value = Event(throwable)

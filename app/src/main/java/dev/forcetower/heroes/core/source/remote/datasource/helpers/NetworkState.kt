@@ -1,10 +1,4 @@
-package dev.forcetower.heroes.core.service.datasource.helpers
-
-enum class Status {
-    RUNNING,
-    SUCCESS,
-    FAILED
-}
+package dev.forcetower.heroes.core.source.remote.datasource.helpers
 
 @Suppress("DataClassPrivateConstructor")
 data class NetworkState private constructor(

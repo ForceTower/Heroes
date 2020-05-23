@@ -1,4 +1,4 @@
-package dev.forcetower.heroes.core.service
+package dev.forcetower.heroes.core.source.remote
 
 import dev.forcetower.heroes.core.model.dto.response.GeneralResponse
 import dev.forcetower.heroes.core.model.dto.MarvelCharacterDTO

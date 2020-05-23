@@ -1,11 +1,11 @@
-package dev.forcetower.heroes.core.service.datasource.factory
+package dev.forcetower.heroes.core.source.remote.datasource.factory
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
-import dev.forcetower.heroes.core.service.MarvelService
-import dev.forcetower.heroes.core.service.datasource.CharacterDataSource
-import dev.forcetower.heroes.core.storage.MarvelDatabase
+import dev.forcetower.heroes.core.source.remote.MarvelService
+import dev.forcetower.heroes.core.source.remote.datasource.CharacterDataSource
+import dev.forcetower.heroes.core.source.local.MarvelDatabase
 import kotlinx.coroutines.CoroutineScope
 
 class CharacterDataSourceFactory(

@@ -1,4 +1,4 @@
-package dev.forcetower.heroes.core.storage.dao
+package dev.forcetower.heroes.core.source.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query

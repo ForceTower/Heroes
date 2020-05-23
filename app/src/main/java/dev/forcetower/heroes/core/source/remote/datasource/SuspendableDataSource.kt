@@ -1,8 +1,8 @@
-package dev.forcetower.heroes.core.service.datasource
+package dev.forcetower.heroes.core.source.remote.datasource
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import dev.forcetower.heroes.core.service.datasource.helpers.NetworkState
+import dev.forcetower.heroes.core.source.remote.datasource.helpers.NetworkState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber

@@ -11,8 +11,8 @@ import com.google.android.material.snackbar.Snackbar
 import dev.forcetower.heroes.R
 import dev.forcetower.heroes.core.base.BaseFragment
 import dev.forcetower.heroes.core.base.BaseViewModelFactory
-import dev.forcetower.heroes.core.service.datasource.helpers.Status
 import dev.forcetower.heroes.core.ui.EventObserver
+import dev.forcetower.heroes.core.source.remote.datasource.helpers.Status
 import dev.forcetower.heroes.databinding.FragmentCharactersBinding
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class CharactersFragment : BaseFragment() {
     private lateinit var binding: FragmentCharactersBinding
     private lateinit var adapter: CharacterAdapter
 
-    private val viewModel: CharacterActions by viewModels<CharactersViewModel> { factory }
+    private val viewModel by viewModels<CharactersViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,

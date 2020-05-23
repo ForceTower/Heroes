@@ -18,7 +18,7 @@ class DetailsFragment : BaseFragment() {
     lateinit var factory: BaseViewModelFactory
     private lateinit var binding: FragmentDetailsBinding
 
-    private val viewModel: DetailsActions by viewModels<DetailsViewModel> { factory }
+    private val viewModel by viewModels<DetailsViewModel> { factory }
     private val args by navArgs<DetailsFragmentArgs>()
 
     override fun onCreateView(

@@ -1,9 +1,9 @@
-package dev.forcetower.heroes.core.service.datasource
+package dev.forcetower.heroes.core.source.remote.datasource
 
 import dev.forcetower.heroes.core.model.dto.asCharacter
 import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
-import dev.forcetower.heroes.core.service.MarvelService
-import dev.forcetower.heroes.core.storage.MarvelDatabase
+import dev.forcetower.heroes.core.source.remote.MarvelService
+import dev.forcetower.heroes.core.source.local.MarvelDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
