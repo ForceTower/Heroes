@@ -51,6 +51,8 @@ class CharactersViewModelTest : BaseTest() {
         viewModel.errorState.observeForever(errorObserver)
         viewModel.characters.observeForever(observer)
 
+        Thread.sleep(100)
+
         captor.run {
             verify(observer, times(1)).onChanged(capture())
             assertEquals(value.size, 20)
@@ -67,6 +69,7 @@ class CharactersViewModelTest : BaseTest() {
         `when`(service.characters(0, 20)).thenReturn(response)
 
         viewModel.characters.observeForever(observer)
+        Thread.sleep(100)
 
         val first = captor.run {
             verify(observer, times(1)).onChanged(capture())
