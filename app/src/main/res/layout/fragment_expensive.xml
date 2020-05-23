@@ -28,7 +28,7 @@
             android:id="@+id/overlay"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="?attr/colorPrimary40"
+            android:background="?attr/colorPrimary60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +109,24 @@
             android:layout_height="wrap_content"
             app:goneUnless="@{actions.comic.title != null}"
             app:constraint_referenced_ids="title,costs,description,thumbnail"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="26sp"
+            android:text="@string/no_expensive_comic"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="gone"
+            app:fontFamily="@font/bebas_regular"
+            app:goneUnless="@{actions.comic.title == null &amp;&amp; !actions.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

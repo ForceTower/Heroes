@@ -15,7 +15,7 @@ data class MarvelComic(
     @PrimaryKey
     val id: Int,
     val digitalId: Int,
-    val issueNumber: Int,
+    val issueNumber: Float,
     val title: String,
     val description: String,
     val thumbnail: String,

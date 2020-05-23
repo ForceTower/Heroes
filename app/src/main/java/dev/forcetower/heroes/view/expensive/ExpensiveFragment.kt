@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dev.forcetower.heroes.core.base.BaseFragment
 import dev.forcetower.heroes.core.base.BaseViewModelFactory
 import dev.forcetower.heroes.core.ui.EventObserver
@@ -18,6 +19,7 @@ class ExpensiveFragment : BaseFragment() {
     private lateinit var binding: FragmentExpensiveBinding
 
     private val viewModel by viewModels<ExpensiveViewModel> { factory }
+    private val args by navArgs<ExpensiveFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +37,7 @@ class ExpensiveFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.setCharacterId(args.characterId)
 
         viewModel.onNavigateBack.observe(viewLifecycleOwner, EventObserver {
             findNavController().popBackStack()

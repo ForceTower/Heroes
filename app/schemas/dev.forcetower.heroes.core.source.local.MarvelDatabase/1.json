@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d6b1eeffcf865316e435d358d550a482",
+    "identityHash": "d72421cdd43016d45e696c60de4ed6a5",
     "entities": [
       {
         "tableName": "MarvelCharacter",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "MarvelComic",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `digitalId` INTEGER NOT NULL, `issueNumber` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `thumbnail` TEXT NOT NULL, `characterId` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`characterId`) REFERENCES `MarvelCharacter`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `digitalId` INTEGER NOT NULL, `issueNumber` REAL NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `thumbnail` TEXT NOT NULL, `characterId` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`characterId`) REFERENCES `MarvelCharacter`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -61,7 +61,7 @@
           {
             "fieldPath": "issueNumber",
             "columnName": "issueNumber",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -169,7 +169,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd6b1eeffcf865316e435d358d550a482')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd72421cdd43016d45e696c60de4ed6a5')"
     ]
   }
 }

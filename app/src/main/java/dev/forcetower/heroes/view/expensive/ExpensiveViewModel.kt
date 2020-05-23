@@ -33,7 +33,7 @@ class ExpensiveViewModel @Inject constructor(
             val fetchSrc = repository.fetchAllComics(id) { error -> onError(error) }
             _loading.addSource(fetchSrc) { pair ->
                 val result = pair.first < pair.second
-                _loading.value = result
+                _loading.setValueIfNew(result)
             }
         }
     }

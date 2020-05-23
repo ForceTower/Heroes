@@ -9,6 +9,7 @@ import dev.forcetower.heroes.core.base.BaseViewModelFactory
 import dev.forcetower.heroes.dagger.annotation.ViewModelKey
 import dev.forcetower.heroes.view.characters.CharactersViewModel
 import dev.forcetower.heroes.view.details.DetailsViewModel
+import dev.forcetower.heroes.view.expensive.ExpensiveViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -21,6 +22,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailsViewModel::class)
     abstract fun bindDetailsViewModel(vm: DetailsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ExpensiveViewModel::class)
+    abstract fun bindExpensiveViewModel(vm: ExpensiveViewModel): ViewModel
 
     @Binds
     abstract fun bindFactory(factory: BaseViewModelFactory): ViewModelProvider.Factory

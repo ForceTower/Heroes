@@ -20,6 +20,7 @@ import dev.forcetower.heroes.core.source.remote.datasource.helpers.Listing
 import dev.forcetower.heroes.core.source.local.MarvelDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -51,17 +52,8 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    override fun character(
-        characterId: Int
-    ): LiveData<MarvelCharacter?> = liveData(Dispatchers.IO) {
-        emitSource(database.characters().character(characterId).asLiveData())
-        // prepare for next screen, cache first page of comics in
-        try {
-            val response = service.comics(characterId = characterId, limit = 20)
-            saveResponse(response, characterId)
-        } catch (error: Throwable) {
-            Timber.e(error, "internal failure on fetch comics")
-        }
+    override fun character(characterId: Int): LiveData<MarvelCharacter?> {
+        return database.characters().character(characterId).asLiveData()
     }
 
     override fun fetchAllComics(
@@ -73,6 +65,7 @@ class MarvelRepository @Inject constructor(
             var total = 0
             emit(0 to 1)
             do {
+                Timber.d("Iteration...")
                 // Here we interested on fetching the max amount of comics in a single run,
                 // so we limit to 100 at each iteration
                 val response = service.comics(characterId, offset, 100)
@@ -82,15 +75,18 @@ class MarvelRepository @Inject constructor(
                 emit(offset to total)
             } while (offset < total)
         } catch (throwable: Throwable) {
-            error(throwable)
-            // emit(-1 to -1)
+            Timber.e(throwable, "error")
+            withContext(Dispatchers.Main) {
+                error(throwable)
+            }
+            emit(-1 to -1)
         }
     }
 
     override fun mostExpensiveComic(
         characterId: Int
-    ): LiveData<MarvelExpensiveComic?> = liveData(Dispatchers.IO) {
-        emitSource(database.comics().mostExpensive(characterId).asLiveData())
+    ): LiveData<MarvelExpensiveComic?> {
+        return database.comics().mostExpensive(characterId).asLiveData()
     }
 
     private suspend fun saveResponse(response: GeneralResponse<MarvelComicDTO>, characterId: Int) {

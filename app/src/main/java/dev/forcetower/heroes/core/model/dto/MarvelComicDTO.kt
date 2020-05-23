@@ -6,7 +6,7 @@ import dev.forcetower.heroes.core.model.persistence.MarvelComic
 data class MarvelComicDTO(
     val id: Int,
     val digitalId: Int,
-    val issueNumber: Int,
+    val issueNumber: Float,
     val title: String,
     val description: String?,
     val prices: List<MarvelComicPriceDTO>,

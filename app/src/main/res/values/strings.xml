@@ -9,8 +9,9 @@
     <string name="back_button">Back</string>
     <string name="most_expensive_comic">Most expensive comic</string>
     <string name="comic_title_format">#%1$d - %2$s</string>
-    <string name="comic_price_format">For only %1$.0f! And that\'s a great price!</string>
+    <string name="comic_price_format">For only US$ %1$.2f! And that\'s a great price!</string>
     <string name="comics_content_loading">Still loading</string>
     <string name="failed_load_comic">Error loading all comics!</string>
     <string name="failed_load_comic_partial">There was an error, this is a partial result</string>
+    <string name="no_expensive_comic">Nothing to show! This agent is undercover</string>
 </resources>
