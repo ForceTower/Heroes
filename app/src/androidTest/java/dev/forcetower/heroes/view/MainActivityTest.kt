@@ -43,8 +43,6 @@ class MainActivityTest {
     @Test
     fun navigateTheWholeApp() {
         activityRule.launchActivity(null)
-        // ensure start is fine
-        Thread.sleep(100)
 
         onView(withId(R.id.characters_recycler))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
