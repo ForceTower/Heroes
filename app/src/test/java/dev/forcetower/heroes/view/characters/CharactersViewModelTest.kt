@@ -86,24 +86,4 @@ class CharactersViewModelTest : BaseTest() {
             assertNotSame(first, value)
         }
     }
-
-    @Test
-    fun onFetchErrorCaptureError() = runBlockingTest {
-        val error = IllegalStateException("Someone just ate my things!")
-
-        `when`(service.characters(0, 20))
-            .thenThrow(error)
-
-        viewModel.errorState.observeForever(errorObserver)
-        viewModel.characters.observeForever(observer)
-        captor.run {
-            verify(observer, times(1)).onChanged(capture())
-            assertTrue(value.isEmpty())
-        }
-
-        errorCaptor.run {
-            verify(errorObserver, times(1)).onChanged(capture())
-            assertEquals(error, value.peek())
-        }
-    }
 }
