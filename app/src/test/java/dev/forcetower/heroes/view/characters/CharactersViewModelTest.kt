@@ -7,10 +7,13 @@ import dev.forcetower.heroes.core.model.persistence.MarvelCharacter
 import dev.forcetower.heroes.core.source.repository.MarvelRepository
 import dev.forcetower.heroes.core.ui.Event
 import dev.forcetower.heroes.extensions.mock
+import dev.forcetower.heroes.getOrAwaitValue
 import dev.forcetower.heroes.view.base.BaseTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotSame
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentCaptor
@@ -57,6 +60,42 @@ class CharactersViewModelTest : BaseTest() {
 
         errorCaptor.run {
             verify(errorObserver, times(0)).onChanged(capture())
+        }
+    }
+
+    @Test
+    fun refreshUpdatesTheList() = runBlockingTest {
+        val response = MarvelFakeDataFactory.makeCharactersResponse()
+        `when`(service.characters(0, 20)).thenReturn(response)
+
+        val first = viewModel.characters.getOrAwaitValue()
+        assertEquals(first.size, 20)
+
+        viewModel.refresh()
+
+        val second = viewModel.characters.getOrAwaitValue()
+        assertEquals(second.size, 20)
+        assertEquals(first, second)
+        assertNotSame(first, second)
+    }
+
+    @Test
+    fun onFetchErrorCaptureError() = runBlockingTest {
+        val error = IllegalStateException("Someone just ate my things!")
+
+        `when`(service.characters(0, 20))
+            .thenThrow(error)
+
+        viewModel.errorState.observeForever(errorObserver)
+        viewModel.characters.observeForever(observer)
+        captor.run {
+            verify(observer, times(1)).onChanged(capture())
+            Assert.assertTrue(value.isEmpty())
+        }
+
+        errorCaptor.run {
+            verify(errorObserver, times(1)).onChanged(capture())
+            assertEquals(error, value.peek())
         }
     }
 }
