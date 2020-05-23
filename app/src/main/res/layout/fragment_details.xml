@@ -52,6 +52,7 @@
                     tools:text="Captain Marvel"/>
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/comic_details_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -72,6 +73,7 @@
                     app:goneUnless="@{actions.character.description.length() == 0}"/>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_expensive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{() -> actions.onNavigateToMostExpensive()}"

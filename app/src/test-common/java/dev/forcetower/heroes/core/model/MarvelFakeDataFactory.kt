@@ -33,7 +33,7 @@ object MarvelFakeDataFactory {
         return MarvelCharacterDTO(
             id,
             "Me, myself i'm a hero now $id",
-            "This is not a description whatsoever",
+            "This is not a description whatsoever. but it is indeed a really long description, one that you never seen before...\n\nYes... More \\n's moreeeeeeeeee\n\nThat's it",
             makeThumbnail()
         )
     }
@@ -58,12 +58,13 @@ object MarvelFakeDataFactory {
     }
 
     fun makeComicsResponse(): GeneralResponse<MarvelComicDTO> {
-        val items = (0..8).map {
+        val items = (0..9).map {
             makeMarvelComic()
         }.toMutableList().apply {
             add(makeMarvelComic(true))
             shuffle()
         }
+        print("items ${items.size} $items")
         return GeneralResponse(
             200,
             PagedResponse(
@@ -92,13 +93,13 @@ object MarvelFakeDataFactory {
             MarvelComicDTO(
                 198,
                 198,
-                1f,
-                "Dragão verde de olhos castanhos",
-                "Uma descrição interessante",
+                1.1f,
+                "Brown eyes green dragon",
+                "Funky description",
                 listOf(
                     MarvelComicPriceDTO(
                         "nothing",
-                        7661.77f
+                        8900.99f
                     ),
                     MarvelComicPriceDTO(
                         "nothing_2",
@@ -113,7 +114,7 @@ object MarvelFakeDataFactory {
                 id,
                 id,
                 1f,
-                "Não tão caro",
+                "Not that expensive",
                 "meh",
                 listOf(
                     MarvelComicPriceDTO(
