@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.forEach
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dev.forcetower.heroes.R
@@ -65,7 +67,13 @@ class CharactersFragment : BaseFragment() {
 
         viewModel.onCharacterSelected.observe(viewLifecycleOwner, EventObserver {
             val directions = CharactersFragmentDirections.actionCharactersToDetails(it.id)
-            findNavController().navigate(directions)
+
+            val element = findViewForTransition(binding.charactersRecycler, it.id)
+            val transitionName = getString(R.string.character_image_transition, it.id)
+            element.transitionName = transitionName
+            val extras = FragmentNavigatorExtras(element to transitionName)
+
+            findNavController().navigate(directions, extras)
         })
     }
 
@@ -77,5 +85,14 @@ class CharactersFragment : BaseFragment() {
             }
             show()
         }
+    }
+
+    private fun findViewForTransition(group: ViewGroup, id: Int): View {
+        group.forEach {
+            if (it.getTag(R.id.character_id_tag) == id) {
+                return it.findViewById(R.id.thumbnail)
+            }
+        }
+        return group
     }
 }

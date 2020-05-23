@@ -1,6 +1,12 @@
 package dev.forcetower.heroes.view.details
 
 import android.os.Bundle
+import android.transition.ArcMotion
+import android.transition.ChangeBounds
+import android.transition.ChangeClipBounds
+import android.transition.ChangeImageTransform
+import android.transition.ChangeTransform
+import android.transition.TransitionSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +15,16 @@ import android.view.animation.AnimationSet
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.fragment.app.viewModels
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dev.forcetower.heroes.core.base.BaseFragment
 import dev.forcetower.heroes.core.base.BaseViewModelFactory
+import dev.forcetower.heroes.core.bindings.ImageLoadListener
 import dev.forcetower.heroes.core.ui.EventObserver
 import dev.forcetower.heroes.databinding.FragmentDetailsBinding
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class DetailsFragment : BaseFragment() {
@@ -26,6 +35,32 @@ class DetailsFragment : BaseFragment() {
     private val viewModel by viewModels<DetailsViewModel> { factory }
     private val args by navArgs<DetailsFragmentArgs>()
 
+    private val imageLoad = object : ImageLoadListener {
+        override fun onImageLoaded() {
+            startPostponedEnterTransition()
+        }
+
+        override fun onImageLoadFailed() {
+            startPostponedEnterTransition()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition(500, TimeUnit.MILLISECONDS)
+        val transition = TransitionSet()
+            .addTransition(ChangeBounds().apply {
+                pathMotion = ArcMotion()
+            })
+            .addTransition(ChangeTransform())
+            .addTransition(ChangeClipBounds())
+            .addTransition(ChangeImageTransform())
+            .setOrdering(TransitionSet.ORDERING_TOGETHER)
+            .setInterpolator(FastOutSlowInInterpolator())
+
+        sharedElementEnterTransition = transition
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +70,7 @@ class DetailsFragment : BaseFragment() {
         return FragmentDetailsBinding.inflate(inflater, container, false).also {
             binding = it
             binding.apply {
+                listener = imageLoad
                 lifecycleOwner = viewLifecycleOwner
                 actions = viewModel
             }

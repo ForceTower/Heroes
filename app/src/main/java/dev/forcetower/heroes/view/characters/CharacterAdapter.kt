@@ -17,7 +17,9 @@ class CharacterAdapter(
     }
 
     override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
-        holder.binding.character = getItem(position)
+        val item = getItem(position)
+        holder.binding.character = item
+        holder.binding.root.setTag(R.id.character_id_tag, item?.id)
     }
 
     inner class CharacterHolder(
