@@ -46,6 +46,7 @@ class ExpensiveViewModel @Inject constructor(
         _onNavigateBack.value = Event(Unit)
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun onError(error: Throwable) {
         if (comic.value == null) {
             // In this case, nothing was loaded, show a more aggressive error

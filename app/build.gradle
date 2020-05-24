@@ -58,11 +58,20 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
+
+            // TODO create a separate key pair to debug
+            buildConfigField "String", "MARVEL_TS", "\"1589927626873\""
+            buildConfigField "String", "MARVEL_PUBLIC_KEY", "\"2139c929528e8a76e7840cd38e7af152\""
+            buildConfigField "String", "MARVEL_HASH_KEY", "\"4acbe9d03a6e1ceb2d7c0ce9be8faa93\""
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "MARVEL_TS", "\"1589927626873\""
+            buildConfigField "String", "MARVEL_PUBLIC_KEY", "\"2139c929528e8a76e7840cd38e7af152\""
+            buildConfigField "String", "MARVEL_HASH_KEY", "\"4acbe9d03a6e1ceb2d7c0ce9be8faa93\""
         }
     }
 
