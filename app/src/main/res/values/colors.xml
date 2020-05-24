@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#ED1D24</color>
+    <color name="colorPrimary60">#99ED1D24</color>
+    <color name="colorPrimaryDark">#ab000d</color>
+    <color name="colorPrimaryLight">#ff6f60</color>
+    <color name="colorSecondary">#FCE154</color>
+    <color name="colorSecondaryDark">#FF9C06</color>
+    <color name="colorSecondaryLight">#FFEF9E</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#FFFFFF</color>
+
+    <color name="titleScoreColor">#ffa000</color>
+    <color name="divider">#e0e0e0</color>
+
+    <color name="textPrimaryDark">#de000000</color>
+    <color name="textSecondaryDark">#8a000000</color>
+
+    <color name="background0">#00FFFFFF</color>
+    <color name="background">#FFFFFFFF</color>
+
+    <integer-array name="swipeRefreshColors">
+        <item>@color/colorPrimary</item>
+        <item>@color/colorSecondary</item>
+        <item>@color/colorSecondaryDark</item>
+        <item>@color/colorPrimaryDark</item>
+    </integer-array>
 </resources>

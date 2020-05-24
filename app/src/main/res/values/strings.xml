@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">desafio-android-joao-sena</string>
+    <string name="marvel">MARVEL</string>
+    <string name="network_error">Network error!</string>
+    <string name="retry">Retry</string>
+    <string name="more_info">More info</string>
+    <string name="meme_empty_text">Wow! Such empty!\nLoading soon</string>
+    <string name="no_description_text">This character has no description, it might be undercover.</string>
+    <string name="back_button">Back</string>
+    <string name="most_expensive_comic">Most expensive comic</string>
+    <string name="comic_title_format">#%1$d - %2$s</string>
+    <string name="comic_price_format">For only US$ %1$.2f! And that\'s a great price!</string>
+    <string name="comics_content_loading">Still loading</string>
+    <string name="failed_load_comic">Error loading all comics!</string>
+    <string name="failed_load_comic_partial">There was an error, this is a partial result</string>
+    <string name="no_expensive_comic">Nothing to show! This agent is undercover</string>
 </resources>

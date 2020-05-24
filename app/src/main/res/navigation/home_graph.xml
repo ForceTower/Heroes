@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph.xml"
+    app:startDestination="@id/characters">
+
+    <fragment
+        android:id="@+id/characters"
+        android:name="dev.forcetower.heroes.view.characters.CharactersFragment"
+        android:label="Characters"
+        tools:layout="@layout/fragment_characters">
+        <action
+            android:id="@+id/action_characters_to_details"
+            app:destination="@id/details"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/details"
+        android:name="dev.forcetower.heroes.view.details.DetailsFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_details">
+        <argument android:name="characterId"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_details_to_expensive"
+            app:destination="@id/expensive"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_close_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/expensive"
+        android:name="dev.forcetower.heroes.view.expensive.ExpensiveFragment"
+        android:label="Details"
+        tools:layout="@layout/fragment_expensive">
+        <argument android:name="characterId"
+            app:argType="integer" />
+    </fragment>
+</navigation>
